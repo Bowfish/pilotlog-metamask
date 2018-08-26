@@ -26,6 +26,5 @@ const mapDispatchToProps = dispatch => {
 
 
 const LicenseContainer = drizzleConnect(License, mapStateToProps, mapDispatchToProps)
-//const LicenseContainer = drizzleConnect(License, mapStateToProps)
 
 export default LicenseContainer

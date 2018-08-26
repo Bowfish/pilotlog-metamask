@@ -1,11 +1,4 @@
-/*
-export const setPilotId = pilotId => ({
-  type: 'SET_PILOT_ID',
-  payload: pilotId
-});
-*/
 export const setPilotId = pilotId => {
-  //console.log('Current pilotId: ' + pilotId)
   return ({
     type: 'SET_PILOT_ID',
     payload: pilotId
@@ -13,8 +6,6 @@ export const setPilotId = pilotId => {
 }
 
 export const setPilotData = pilotData => {
-  //console.log('Current pilotData:')
-  //console.log(pilotData)
   return ({
     type: 'SET_PILOT_DATA',
     payload: pilotData

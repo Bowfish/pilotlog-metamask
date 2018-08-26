@@ -62,9 +62,9 @@ class License extends Component {
       this.setState({ipfsHash: ipfsHash[0].hash});
 
 			const { digest, hashFunction, size } = getBytes32FromMultiash(ipfsHash[0].hash);
-			console.log(digest)
-			console.log(hashFunction)
-			console.log(size)
+			console.log('Multihash digest: ' + digest)
+			console.log('Multihas hashFunction: ' + hashFunction)
+			console.log('Multihas hashFunction: ' + size)
 			this.LogFactory.methods.setIpfsDocument(
 				DOC_TYPE_LICENSE,
 				digest,
@@ -82,10 +82,6 @@ class License extends Component {
 				console.log('VM Exception: Document.saveDocumentData')
 				console.log(error)
 			})
-
-      // call Ethereum contract method "sendHash" and .send IPFS hash to etheruem contract
-      //return the transaction hash from the ethereum contract
-      //see, this https://web3js.readthedocs.io/en/1.0/web3-eth-contract.html#methods-mymethod-send
 
     }) //await ipfs.add
 
@@ -132,13 +128,6 @@ class License extends Component {
 								<Label size={'big'}>Please select a pilot</Label>
 							</Grid.Column>
 						</Grid.Row>
-						{/*}
-						<Grid.Row>
-							<Grid.Column textAlign='center'>
-								<Image src='http://127.0.0.1:8080/ipfs/QmW2WQi7j6c7UgJTarActp7tDNikE4B2qXtFCfLPdsgaTQ/cat.jpg' />
-							</Grid.Column>
-						</Grid.Row>
-						*/}
 					</Grid>
 				)
 			} else {

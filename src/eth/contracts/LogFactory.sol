@@ -52,7 +52,6 @@ contract LogFactory is Destructible {
 
   event LogCreatePilotContract ( address indexed pilotId, address pilotContract );
   event LogSetPilotContract    ( address indexed pilotId, address pilotContract );
-  //event LogDeleteLogbookEntry  ( address indexed pilotId, bytes32 logbookEntryHash );
   event LogDeleteIpfsDocument  ( address indexed pilotId, uint indexed docType );
   event LogDeleteIpfsLogbook   ( address indexed pilotId, uint indexed docType );
 

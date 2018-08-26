@@ -27,7 +27,6 @@ contract Document is Destructible {
     uint8 _hashFunction,
     uint8 _size
   ) public {
-    // check for overflows
     require(_docType > 0 && _docType < 255);
     require(_hashFunction > 0 && _hashFunction < 255);
     require(_size > 0 && _size < 255);

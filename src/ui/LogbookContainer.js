@@ -8,7 +8,6 @@ import {
 import Logbook from './Logbook'
 
 const mapStateToProps = state => {
-  //console.log(state)
   return {
     pilotId: state.pilotLog.pilotId,
     logbookData: state.pilotLog.logbookData,

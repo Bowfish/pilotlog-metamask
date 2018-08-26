@@ -31,15 +31,8 @@ contract Pilot is Destructible {
   constructor() public {
 
     logbookContract = new Logbook();
-
     documentContract = new Document();
   }
-
-  /*
-  function setLogbookContract(_logbookContract) public  {
-    logbookContract = _logbookContract;
-  }
-  */
 
   /**
    * @dev Return the address of the Logbook contract of the current pilot

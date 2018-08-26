@@ -21,11 +21,6 @@ import drizzleOptions from './drizzle/options'
 import "./styles/semantic-dist/semantic.css";
 import browserHistory from './redux/history'
 
-/*
-import Datum from 'datum-sdk'
-console.log(Datum)
-*/
-
 // make the store avialable to the browser console
 window.store = store
 
@@ -35,8 +30,6 @@ if (window.web3) {
 	window.web3 = new Web3(window.web3.currentProvider);
 }
 */
-
-//console.log(store)
 
 ReactDOM.render((
 	<DrizzleProvider options={drizzleOptions} store={store}>

@@ -36,8 +36,6 @@ class App extends Component {
 
   componentDidMount() {
 
-    console.log('account: ' + this.props.accounts[0])
-
     const pilotId = this.props.accounts[0]
     this.props.setPilotId(pilotId)
 

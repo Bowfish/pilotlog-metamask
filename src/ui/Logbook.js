@@ -48,7 +48,7 @@ class Logbook extends Component {
 		this.setState({isLoading: true})
 
 		const logbookData = {...this.props.logbookData}
-		console.log(logbookData)
+		//console.log(logbookData)
 		const logbookDataString = JSON.stringify(logbookData, null, 2)
 		//console.log(logbookDataString)
 
@@ -62,9 +62,9 @@ class Logbook extends Component {
 	      console.log('Logbook File Hash: ' + ipfsHash[0].hash);
 
 				const { digest, hashFunction, size } = getBytes32FromMultiash(ipfsHash[0].hash);
-				console.log(digest)
-				console.log(hashFunction)
-				console.log(size)
+				console.log('Multihash digest: ' + digest)
+				console.log('Multihas hashFunction: ' + hashFunction)
+				console.log('Multihas hashFunction: ' + size)
 				this.LogFactory.methods.setIpfsLogbook(
 					DOC_TYPE_LOGBOOK,
 					digest,
