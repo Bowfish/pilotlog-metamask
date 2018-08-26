@@ -21,12 +21,18 @@ Install all npm modules:
 
 `$ npm install --save`
 
+Install truffle version 5.0.0
+
+`$ sudo npm install -g truffle@next`
+
 Install ganache:
 
 `$ sudo npm install -g ganache-cli`
 
 ## Test
 Run the truffle tests:
+
+`$ ganache-cli`
 
 `$ cd src/eth`
 
