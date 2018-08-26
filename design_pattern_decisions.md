@@ -13,14 +13,14 @@ Damian Hischier
 The project has the follwing contract structure:
 
 ### Contracts
-* Logbook
+* LogFactory
   * Pilot
     * Logbook
     * Document
 
 LogFactory: The LogFactory contract is the only contract which has functions which will be called by the dApp. Logbook forwards the function calls to Pilot which is a child of the Logbook contract. The account addresses of all pilots will be stored in Logbook. For each pilot a new Pilot contract will be created with its two child contracts Logbook and Document. Logbook holds the contract addresses of the Pilot contract. Pilot holds the addresses of Logbook and Document. In case a contract has to be changed or updated the contracts can be changed.
 
-Pilot: The Pilot contracts stores the pilot datate and is the owner of the Logbook and Document contracts.
+Pilot: The Pilot contract stores the pilot data and is the owner of the Logbook and Document contracts.
 
 Logbook: The Logbook contract stores the IPFS hash of the logbook data.
 
