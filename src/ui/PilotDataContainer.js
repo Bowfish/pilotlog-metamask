@@ -1,4 +1,3 @@
-// react imports
 import { drizzleConnect } from 'drizzle-react'
 
 import {
@@ -8,7 +7,6 @@ import {
 import PilotData from './PilotData'
 
 const mapStateToProps = state => {
-  //console.log(state)
   return {
     pilotId: state.pilotLog.pilotId,
     pilotData: state.pilotLog.pilotData,

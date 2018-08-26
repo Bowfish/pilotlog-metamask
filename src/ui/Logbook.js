@@ -44,13 +44,12 @@ class Logbook extends Component {
 
 	onSubmit = async (event) => {
 
-		// create a time stamp of the current time
+		event.preventDefault()
+
 		this.setState({isLoading: true})
 
 		const logbookData = {...this.props.logbookData}
-		//console.log(logbookData)
 		const logbookDataString = JSON.stringify(logbookData, null, 2)
-		//console.log(logbookDataString)
 
     const blob = new Blob([logbookDataString],{type: 'application/json'});
     const reader = new FileReader();
@@ -63,8 +62,8 @@ class Logbook extends Component {
 
 				const { digest, hashFunction, size } = getBytes32FromMultiash(ipfsHash[0].hash);
 				console.log('Multihash digest: ' + digest)
-				console.log('Multihas hashFunction: ' + hashFunction)
-				console.log('Multihas hashFunction: ' + size)
+				console.log('Multihash hashFunction: ' + hashFunction)
+				console.log('Multihash hashFunction: ' + size)
 				this.LogFactory.methods.setIpfsLogbook(
 					DOC_TYPE_LOGBOOK,
 					digest,

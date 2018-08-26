@@ -5,7 +5,12 @@ export const SET_LICENSE_HASH = 'SET_LICENSE_HASH'
 
 const initialState = {
   pilotId: '0x0',
-  pilotData: {},
+  pilotData: {
+    firstName: '',
+    lastName:'',
+    email:'',
+    birthDate: 0,
+  },
   logbookData: [],
   licenseHash: '0x0'
 };

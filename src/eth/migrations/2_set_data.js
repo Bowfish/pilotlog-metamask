@@ -1,10 +1,3 @@
-/*
-const Multihash  = artifacts.require("Multihash.sol");
-const LogFactory = artifacts.require("LogFactory.sol");
-const Pilot      = artifacts.require("Pilot.sol");
-const Logbook    = artifacts.require("Logbook.sol");
-const Document  = artifacts.require("Document.sol");
-*/
 const Multihash  = artifacts.require("Multihash");
 const LogFactory = artifacts.require("LogFactory");
 const Pilot      = artifacts.require("Pilot");
@@ -54,53 +47,55 @@ module.exports = function (deployer, network, accounts) {
     await deployer.deploy(LogFactory)
     await deployer.deploy(Document)
     await deployer.deploy(Pilot)
-    //await deployer.deploy(Logbook)
-    const logFactoryContract = await LogFactory.deployed()
+    await deployer.deploy(Logbook)
 
-    // Create createPilotContract for each account
-    console.log('************************************************************************');
-    console.log('* Creating a Pilot including child contracts for each account')
-    console.log('************************************************************************');
-    accounts.forEach(async (account) => {
-      console.log('* Creating a Contracts for:   ' + account)
-      await logFactoryContract.createPilotContract(account, {from: accounts[0]})
-    })
-    console.log('************************************************************************');
+    //const logFactoryContract = await LogFactory.deployed()
+
+		/*
+    const isPilot = await logFactoryContract.isPilot(accounts[0], {from: accounts[0]})
+		console.log('isPilot: ' + isPilot)
+		*/
+
+		/*
+    console.log('   ************************************************************************');
+    console.log('   * Creating a Pilot including child contracts for each account')
+    console.log('   ************************************************************************');
+    await logFactoryContract.createPilotContract(accounts[0], {from: accounts[0]})
     console.log('')
+    const isPilot = await logFactoryContract.isPilot(accounts[0], {from: accounts[0]})
+		console.log('isPilot: ' + isPilot)
 
     const pilotContractAddress = await logFactoryContract.getPilotContract(accounts[0], {from: accounts[0]})
     const pilotContract = await Pilot.at(pilotContractAddress)
-    //const pilotContractOwner = await pilotContract.getOwner()
     const pilotContractOwner = await pilotContract.owner.call()
 
     const logbookContractAddress = await pilotContract.getLogbookContract()
     const logbookContract = await Logbook.at(logbookContractAddress)
-    //const logbookContractOwner = await logbookContract.getOwner()
     const logbookContractOwner = await logbookContract.owner.call()
 
     const documentContractAddress = await pilotContract.getDocumentContract()
     const documentContract = await Logbook.at(documentContractAddress)
-    //const documentContractOwner = await documentContract.getOwner()
     const documentContractOwner = await documentContract.owner.call()
 
-    console.log('************************************************************************');
-    console.log('* Checking all contract ownerships for account[0]')
-    console.log('************************************************************************');
-    console.log('* LogFactory                : ' + logFactoryContract.address)
-    console.log('* Pilot Contract Owner      : ' + pilotContractOwner)
-    console.log('* Pilot Contract Address    : ' + pilotContractAddress)
-    console.log('* Logbook Contract Owner    : ' + logbookContractOwner)
-    console.log('* Logbook Contract Address  : ' + logbookContractAddress)
-    console.log('* Document Contract Owner   : ' + documentContractOwner)
-    console.log('* Document Contract Address : ' + documentContractAddress)
-    console.log('************************************************************************');
+    console.log('   ************************************************************************');
+    console.log('   * Checking all contract ownerships for account[0]')
+    console.log('   ************************************************************************');
+    console.log('   * LogFactory                : ' + logFactoryContract.address)
+    console.log('   * Pilot Contract Owner      : ' + pilotContractOwner)
+    console.log('   * Pilot Contract Address    : ' + pilotContractAddress)
+    console.log('   * Logbook Contract Owner    : ' + logbookContractOwner)
+    console.log('   * Logbook Contract Address  : ' + logbookContractAddress)
+    console.log('   * Document Contract Owner   : ' + documentContractOwner)
+    console.log('   * Document Contract Address : ' + documentContractAddress)
+    console.log('   ************************************************************************');
     console.log('')
+		*/
 
+		/*
     await logFactoryContract.setPilotData(
       web3.utils.utf8ToHex('Damian'),
       web3.utils.utf8ToHex('Hischier'),
       web3.utils.utf8ToHex('dh@xmx.ch'),
-      //web3.utils.utf8ToHex('20.05.1970'),
       new Date(1990, 04, 20, 06, 15).getTime(),
       {from: accounts[0]}
     )
@@ -118,17 +113,6 @@ module.exports = function (deployer, network, accounts) {
     console.log('************************************************************************');
     console.log('')
 
-		/*
-    await logFactoryContract.addLogbookEntry(
-      ipfsLogHash,
-			'Data',
-      ipfsLog.digest,
-      ipfsLog.hashFunction,
-      ipfsLog.size,
-      {from: accounts[0]}
-    )
-		*/
-
     await logFactoryContract.setIpfsLogbook(
       2,
       ipfsLog.digest,
@@ -136,41 +120,6 @@ module.exports = function (deployer, network, accounts) {
       ipfsLog.size,
       {from: accounts[0]}
     )
-
-		/*
-    log.date = new Date(log.date).setDate(15)
-    await logFactoryContract.addLogbookEntry(
-      '0x7b73022f4a97c5efad3ee9c46b58c11e7a401f249b37b742f67f1a2096ef887d',
-      JSON.stringify(log),
-      {from: accounts[0]}
-    )
-
-    log.date = new Date(log.date).setDate(16)
-    await logFactoryContract.addLogbookEntry(
-      '0x7c73cb6ce92315add94311ae3420cd84e92c1aaae7ce8972ab4924793ee953c4',
-      JSON.stringify(log),
-      {from: accounts[0]}
-    )
-
-    log.date = new Date(log.date).setDate(17)
-    await logFactoryContract.addLogbookEntry(
-      '0xac087acb603f0e6be6ec1aa7234a830924afd81cdf30c4d42a88f54b01abbfcf',
-      JSON.stringify(log),
-      {from: accounts[0]}
-    )
-
-    const logbookEntries = await logFactoryContract.getLogbookEntries(
-      {from: accounts[0]}
-    )
-
-    console.log('************************************************************************');
-    console.log('* Creaating Logbook data for: ' + accounts[0])
-    console.log('************************************************************************');
-    console.log('')
-    console.log(logbookEntries);
-    console.log('')
-		*/
-
 
     await logFactoryContract.setIpfsDocument(
       1,
@@ -198,6 +147,7 @@ module.exports = function (deployer, network, accounts) {
     console.log('* End of migrations')
     console.log('************************************************************************');
     console.log('')
+		*/
 
   })
 }

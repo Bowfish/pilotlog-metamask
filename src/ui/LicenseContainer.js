@@ -8,7 +8,6 @@ import {
 import License from './License'
 
 const mapStateToProps = state => {
-  //console.log(state)
   return {
     accounts: state.accounts,
     Pilot: state.contracts.Pilot,

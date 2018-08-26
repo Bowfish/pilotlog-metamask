@@ -63,8 +63,8 @@ class License extends Component {
 
 			const { digest, hashFunction, size } = getBytes32FromMultiash(ipfsHash[0].hash);
 			console.log('Multihash digest: ' + digest)
-			console.log('Multihas hashFunction: ' + hashFunction)
-			console.log('Multihas hashFunction: ' + size)
+			console.log('Multihash hashFunction: ' + hashFunction)
+			console.log('Multihash hashFunction: ' + size)
 			this.LogFactory.methods.setIpfsDocument(
 				DOC_TYPE_LICENSE,
 				digest,

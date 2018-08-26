@@ -17,7 +17,7 @@ var documentContractOwner;
 var firstName     = 'firstName';
 var lastName      = 'lastName';
 var email         = 'email';
-var birthDate     = 'birthDate';
+var birthDate     = new Date().getTime();
 var logbookEntry  = '0x7b73022f4a97c5efad3ee9c46b58c11e7a401f249b37b742f67f1a2096ef887d';
 var documentEntry = '0xac087acb603f0e6be6ec1aa7234a830924afd81cdf30c4d42a88f54b01abbfcf';
 var ipfsDocHash = 'QmV2E1QsAe1peoLoWom8aGhz4dFv44Xv4LypPh91w3vJKk'
@@ -74,14 +74,14 @@ contract("Pilot basic test patterns", function(accounts) {
       web3.utils.utf8ToHex(firstName),
       web3.utils.utf8ToHex(lastName),
       web3.utils.utf8ToHex(email),
-      web3.utils.utf8ToHex(birthDate),
+			birthDate,
       {from: owner}
 		)
     const pilotData = await pilotContract.getPilotData({from: owner});
     assert.strictEqual(web3.utils.hexToUtf8(pilotData[0]), firstName, "First Name is not correct.");
     assert.strictEqual(web3.utils.hexToUtf8(pilotData[1]), lastName,  "Last Name is not correct.");
     assert.strictEqual(web3.utils.hexToUtf8(pilotData[2]), email,     "Email is not correct.");
-    assert.strictEqual(web3.utils.hexToUtf8(pilotData[3]), birthDate, "Birth Date is not correct.");
+    assert.strictEqual(pilotData[3].toNumber(), birthDate, "Birth Date is not correct.");
 
   })
 

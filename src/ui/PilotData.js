@@ -49,7 +49,8 @@ class PilotData extends Component {
 
 	onSubmit = async (event) => {
 
-		// create a time stamp of the current time
+		event.preventDefault();
+
 		this.setState({isLoading: true})
 
 		this.LogFactory.methods.setPilotData(
@@ -138,7 +139,7 @@ class PilotData extends Component {
                     label='Email Address'
                     placeholder='Email Address'
                     type='email'
-                    //onChange={this.onChange}
+                    onChange={this.onChange}
                   />
                   <Form.Input
                     name='birthDateStr'
