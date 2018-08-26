@@ -34,6 +34,8 @@ Run the truffle tests:
 
 `$ ganache-cli`
 
+Change to another terminal
+
 `$ cd src/eth`
 
 `$ truffle test`
