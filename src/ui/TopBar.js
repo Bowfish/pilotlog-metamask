@@ -10,7 +10,7 @@ class TopBar extends Component {
       <Segment>
       <Grid columns='equal'>
         <Grid.Column width={14}>
-          <h1>Pilot Logbook of Account: {this.props.pilotId}</h1>
+          <h2>Pilot Logbook of Account: {this.props.pilotId}</h2>
         </Grid.Column>
         <Grid.Column textAlign='right' width={2}>
 					<Link to='/'>

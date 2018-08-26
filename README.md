@@ -82,4 +82,8 @@ Click on Logbook. You can enter logbook data in the input fields. When you leave
 Click on License. Select the file which you want to upload and click Upload Licese. When you clicked Upload you have to sign the transaction with Metamsk. Be careful what kind of file you want to upload. The file you will upload, will remain on ipfs permanently. You will not be able to delete it. The selected file will be uploaded to IPFS. Click on License to download the file. If you want to delete the license click on Delete License. The file will not be deleted, but the hash which is stored in the contract will be deleted.
 
 ## Metamsk
-https://consensys.zendesk.com/hc/en-us/articles/360004177531-Resetting-an-Account-New-UI-
+Note on Metamask: If you get the following error message while signing a transaction with Metamask:
+
+Error: the tx doesn't have the correct nonce. account has nonce of: 20 tx has nonce of: 46
+
+Follow [this](https://consensys.zendesk.com/hc/en-us/articles/360004177531-Resetting-an-Account-New-UI-) procedure.

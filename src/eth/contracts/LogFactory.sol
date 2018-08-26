@@ -25,7 +25,7 @@ contract LogFactory is Destructible {
     bytes32 firstName,
     bytes32 lastName,
     bytes32 email,
-    bytes32 birthDate
+    int birthDate
   );
 
   event LogAddLogbookEntry(
@@ -131,7 +131,7 @@ contract LogFactory is Destructible {
     bytes32 _firstName,
     bytes32 _lastName,
     bytes32 _email,
-    bytes32 _birthDate
+    int _birthDate
   ) isPilot public returns(bool){
     require(pilotContracts[msg.sender] != 0);
     Pilot(pilotContracts[msg.sender]).setPilotData(
@@ -156,7 +156,7 @@ contract LogFactory is Destructible {
    * @return email The email address of the current pilot
    * @return birthDate The birth date of the current pilot
    */
-  function getPilotData() isPilot public view returns ( bytes32 firstName, bytes32 lastName, bytes32 email, bytes32 birthDate) {
+  function getPilotData() isPilot public view returns ( bytes32 firstName, bytes32 lastName, bytes32 email, int birthDate) {
     require(pilotContracts[msg.sender] != 0);
     return (
       Pilot(pilotContracts[msg.sender]).getPilotData()

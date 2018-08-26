@@ -62,3 +62,17 @@ export function getLogTotalTimeStr(timeStart, timeEnd) {
 		return '00:00'
 	}
 }
+
+export function getDateTime(dateStr) {
+  return(new Date(dateStr).getTime())
+}
+
+export function getIsoDateStr(timeStamp) {
+  const date = new Date(timeStamp)
+  const isoDateStr = sprintf('%4d-%02d-%02d',
+		date.getFullYear(),
+		date.getMonth() + 1,
+		date.getDate()
+	)
+	return isoDateStr
+}

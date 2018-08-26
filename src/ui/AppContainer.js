@@ -16,6 +16,7 @@ const mapStateToProps = state => {
     drizzleStatus: state.drizzleStatus,
     pilotId: state.pilotLog.pilotId,
     LogFactory: state.contracts.LogFactory,
+    logbookData: state.pilotLog.logbookData
   }
 }
 

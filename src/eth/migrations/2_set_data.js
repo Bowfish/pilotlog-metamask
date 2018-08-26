@@ -100,11 +100,13 @@ module.exports = function (deployer, network, accounts) {
       web3.utils.utf8ToHex('Damian'),
       web3.utils.utf8ToHex('Hischier'),
       web3.utils.utf8ToHex('dh@xmx.ch'),
-      web3.utils.utf8ToHex('20.05.1970'),
+      //web3.utils.utf8ToHex('20.05.1970'),
+      new Date(1990, 04, 20, 06, 15).getTime(),
       {from: accounts[0]}
     )
 
     const pilotData = await logFactoryContract.getPilotData( {from: accounts[0]} )
+		console.log(pilotData)
 
     console.log('************************************************************************');
     console.log('* Creating Pilot data for   : ' + accounts[0])
@@ -112,7 +114,7 @@ module.exports = function (deployer, network, accounts) {
     console.log('* First Name: ' + web3.utils.hexToUtf8(pilotData.firstName))
     console.log('* Last Name : ' + web3.utils.hexToUtf8(pilotData.lastName))
     console.log('* Email     : ' + web3.utils.hexToUtf8(pilotData.email))
-    console.log('* Birth Date: ' + web3.utils.hexToUtf8(pilotData.birthDate))
+    console.log('* Birth Date: ' + pilotData.birthDate.toNumber())
     console.log('************************************************************************');
     console.log('')
 

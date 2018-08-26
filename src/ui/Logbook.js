@@ -40,7 +40,6 @@ class Logbook extends Component {
 			ldgNight:	'',
 			remarks:	''
 		}
-
 	}
 
 	onSubmit = async (event) => {

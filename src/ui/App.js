@@ -13,6 +13,8 @@ import { getMultihashFromContractResponse } from '../api/multihash'
 
 import TopBar from './TopBar'
 import VerticalMenu from './VerticalMenu'
+import Home from './Home'
+import PilotDataContainer from './PilotDataContainer'
 import LogbookContainer from './LogbookContainer'
 import LicenseContainer from './LicenseContainer'
 
@@ -55,7 +57,7 @@ class App extends Component {
 					firstName: this.web3.utils.hexToUtf8(pilotDataValues.firstName),
 					lastName:  this.web3.utils.hexToUtf8(pilotDataValues.lastName),
 					email:     this.web3.utils.hexToUtf8(pilotDataValues.email),
-					birthDate: this.web3.utils.hexToUtf8(pilotDataValues.birthDate)
+					birthDate: Number(pilotDataValues.birthDate)
 				}
 				this.props.setPilotData(pilotData)
         this.setState({ isLoadingPilotData: false })
@@ -110,10 +112,6 @@ class App extends Component {
 
   render() {
 
-    if (this.props.pilotId === '0x0') {
-
-
-    }
     return (
       <Grid divided>
         <Grid.Row>
@@ -137,6 +135,8 @@ class App extends Component {
       	      </Grid>
             ) : (
               <Switch>
+                <Route path='/' exact component={Home} />
+                <Route path='/pilotdata' component={PilotDataContainer} />
                 <Route path='/logbook' component={LogbookContainer} />
                 <Route path='/license' component={LicenseContainer} />
               </Switch>
