@@ -142,7 +142,7 @@ contract("LogFactory basic test patterns", function(accounts) {
     assert.strictEqual(documentEntry[1].toNumber(), 0, "Document Entry is not correct.");
   })
 
-  it("delete the Pilot Contract and its children", async function() {
+  it("delete the Pilot contract and its children", async function() {
     await logFactoryContract.deletePilotContract(
       {from: owner}
     )

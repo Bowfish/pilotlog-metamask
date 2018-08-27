@@ -22,7 +22,6 @@ class License extends Component {
 			isLoading: false,
 			isFileSelected: false
 		}
-
 	}
 
 	convertToBuffer = async(reader) => {
@@ -70,14 +69,13 @@ class License extends Component {
 				digest,
 				hashFunction,
 				size
-			).send({from: this.props.pilotId, gas: 6721975, gasPrice: 100000000000})
+			//).send({from: this.props.pilotId, gas: 6721975, gasPrice: 100000000000})
+			).send({from: this.props.pilotId, gas: 150000, gasPrice: 100000000000})
 			.then((result, error) => {
-
+				console.log(result)
 				// add the new record to the store that it can be displayed
 	      this.props.setLicenseHash(ipfsHash[0].hash);
-
 				this.setState({isLoading: false})
-
 			}).catch((error) => {
 				console.log('VM Exception: Document.saveDocumentData')
 				console.log(error)
@@ -91,8 +89,10 @@ class License extends Component {
 		// delete the document from the contract
 		this.LogFactory.methods.deleteIpfsDocument(
 			DOC_TYPE_LICENSE
-		).send({from: this.props.pilotId, gas: 6721975, gasPrice: 100000000000})
+		//).send({from: this.props.pilotId, gas: 6721975, gasPrice: 100000000000})
+	).send({from: this.props.pilotId, gas: 150000, gasPrice: 100000000000})
 		.then((result, error) => {
+			console.log(result)
 			this.props.setLicenseHash('0x0')
 			this.setState({isFileSelected: false})
 		}).catch((error) => {

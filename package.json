@@ -34,6 +34,7 @@
     "semantic-ui-react": "^0.82.3",
     "sprintf-js": "^1.1.1",
     "truffle-contract": "^3.0.6",
+    "truffle-hdwallet-provider": "^1.0.0-web3one.0",
     "web3": "^1.0.0-beta.35"
   },
   "scripts": {

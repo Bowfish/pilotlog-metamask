@@ -58,8 +58,10 @@ class PilotData extends Component {
 			this.web3.utils.utf8ToHex(this.state.lastName),
 			this.web3.utils.utf8ToHex(this.state.email),
 			this.state.birthDate
-		).send({from: this.props.pilotId, gas: 6721975, gasPrice: 100000000000})
+		//).send({from: this.props.pilotId, gas: 6721975, gasPrice: 100000000000})
+		).send({from: this.props.pilotId, gas: 200000, gasPrice: 100000000000})
 		.then((result, error) => {
+			console.log(result)
       this.props.setPilotData(this.state)
 			this.setState({isLoading: false})
 		}).catch((error) => {

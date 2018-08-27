@@ -29,7 +29,6 @@ contract Pilot is Destructible {
    * @dev Create a new Document contract
    */
   constructor() public {
-
     logbookContract = new Logbook();
     documentContract = new Document();
   }
@@ -45,7 +44,7 @@ contract Pilot is Destructible {
   /**
    * @dev Destroy the Logbook contract
    */
-  function deleteLogbookContract() public {
+  function deleteLogbookContract() public onlyOwner {
     Logbook(logbookContract).destroy();
   }
 
@@ -60,7 +59,7 @@ contract Pilot is Destructible {
   /**
    * @dev Destroy the Document contract
    */
-  function deleteDocumentContract() public {
+  function deleteDocumentContract() public onlyOwner {
     Document(documentContract).destroy();
   }
 
@@ -90,7 +89,7 @@ contract Pilot is Destructible {
    * @return email The email address of the current pilot
    * @return birthDate The birth date of the current pilot
    */
-  function getPilotData() view public onlyOwner returns(bytes32 firstName, bytes32 lastName, bytes32 email, int birthDate) {
+  function getPilotData() public view onlyOwner returns(bytes32 firstName, bytes32 lastName, bytes32 email, int birthDate) {
     return (
       pilotData.firstName,
       pilotData.lastName,

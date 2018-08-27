@@ -69,8 +69,10 @@ class Logbook extends Component {
 					digest,
 					hashFunction,
 					size
-				).send({from: this.props.pilotId, gas: 6721975, gasPrice: 100000000000})
+				//).send({from: this.props.pilotId, gas: 6721975, gasPrice: 100000000000})
+				).send({from: this.props.pilotId, gas: 150000, gasPrice: 100000000000})
 				.then((result, error) => {
+					console.log(result)
 					this.setState({isLoading: false})
 				}).catch((error) => {
 					console.log('VM Exception: Logbook.saveLogbookData')

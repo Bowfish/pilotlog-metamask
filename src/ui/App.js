@@ -32,11 +32,13 @@ class App extends Component {
       isLoadingLogbook: false,
       isLoadingLicense: false
     }
+    //console.log(this.LogFactory)
   }
 
   async componentDidMount() {
 
     const pilotId = this.props.accounts[0]
+    //const pilotId = this.props.accounts[1]
     this.props.setPilotId(pilotId)
 
     console.log('pilotId: ' + pilotId)
@@ -49,22 +51,36 @@ class App extends Component {
         isLoadingLicense: true
       })
 
+			const owner = await this.LogFactory.methods.owner().call()
+      console.log('owner: ' + owner)
+
+			const pilotContract = await this.LogFactory.methods.getPilotContract(pilotId).call({from: owner})
+      console.log('pilotContract: ' + pilotContract)
+
+			const logbookContract = await this.LogFactory.methods.getLogbookContract(pilotId).call({from: owner})
+      console.log('logbookContract: ' + logbookContract)
+
+			const documentContract = await this.LogFactory.methods.getDocumentContract(pilotId).call({from: owner})
+      console.log('documentContract: ' + documentContract)
+
       // check whether the account already has a Pilot contract
 			const isPilot = await this.LogFactory.methods.isPilot(pilotId).call({
-        from: pilotId
+        from: owner
+        //from: pilotId
       })
       console.log('isPilot: ' + isPilot)
 
       if (isPilot === false) {
-        // if not -> create a new Pilot Contract
+        // if pilot does not exist -> create a new Pilot Contract
         const result = await this.LogFactory.methods.createPilotContract(
     			pilotId
-    		).send({from: pilotId, gas: 6721975, gasPrice: 100000000000})
+        //).send({from: owner, gas: 6721975, gasPrice: 100000000000})
+        ).send({from: owner, gas: 3000000, gasPrice: 100000000000})
         console.log(result)
       }
 
       // read tje pilot data
-			const pilotDataValues = await  this.LogFactory.methods.getPilotData().call({
+			const pilotDataValues = await this.LogFactory.methods.getPilotData().call({
 				from: pilotId
 			})
 			const pilotData = {
@@ -92,8 +108,8 @@ class App extends Component {
 					const logbookEntriesArray = Object.values(logbookEntries)
 					logbookEntriesArray.forEach((logbookEntry) => {
 						this.props.setLogbookData([...this.props.logbookData, logbookEntry])
-            this.setState({ isLoadingLogbook: false })
 					})
+          this.setState({ isLoadingLogbook: false })
 				})
 			}
 
@@ -106,7 +122,10 @@ class App extends Component {
 				const licenseHash = getMultihashFromContractResponse(licenseMultiHash)
 				if (licenseHash) this.props.setLicenseHash(licenseHash);
         this.setState({ isLoadingLicense: false })
-			}
+			} else {
+				this.props.setLicenseHash('0x0');
+        this.setState({ isLoadingLicense: false })
+      }
 
       /*
 			this.LogFactory.methods.isPilot(pilotId).call({
@@ -212,7 +231,7 @@ class App extends Component {
             <VerticalMenu />
           </Grid.Column>
           <Grid.Column width={14}>
-            {this.state.isLoadingPilotData && this.state.isLoadingLog && this.state.isLoadingLogbook ? (
+            {this.state.isLoadingPilotData && this.state.isLoadingLicense && this.state.isLoadingLogbook ? (
               <Grid centered>
       	        <Grid.Row>
       	          <main>

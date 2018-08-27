@@ -2,8 +2,9 @@ const Multihash  = artifacts.require("Multihash");
 const LogFactory = artifacts.require("LogFactory");
 const Pilot      = artifacts.require("Pilot");
 const Logbook    = artifacts.require("Logbook");
-const Document  = artifacts.require("Document");
+const Document   = artifacts.require("Document");
 
+/*
 var log = {
 	modified: new Date().getTime(),
 	date:	new Date().getTime(),
@@ -34,6 +35,7 @@ var ipfsLog = {
 	hashFunction: 18,
 	size: 32
 }
+*/
 
 module.exports = function (deployer, network, accounts) {
 
@@ -41,10 +43,12 @@ module.exports = function (deployer, network, accounts) {
 
     await deployer.deploy(Multihash)
     await deployer.link(Multihash, LogFactory)
+    await deployer.deploy(LogFactory)
+
+		// Deployments for truffel test
     await deployer.link(Multihash, Document)
     await deployer.link(Multihash, Logbook)
     await deployer.link(Multihash, Pilot)
-    await deployer.deploy(LogFactory)
     await deployer.deploy(Document)
     await deployer.deploy(Pilot)
     await deployer.deploy(Logbook)

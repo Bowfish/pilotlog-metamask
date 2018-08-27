@@ -64,41 +64,46 @@ contract LogFactory is Destructible {
   }
 
   /**
-   * @dev Create a new Pilot contract
-   * @param _pilotId The ccount address of the pilot
-   */
-  function createPilotContract(
-    address _pilotId
-  ) onlyOwner public {
-    require(pilotContracts[_pilotId] == 0);
-    pilotContracts[_pilotId] = new Pilot();
-    emit LogCreatePilotContract(_pilotId, pilotContracts[_pilotId]);
-  }
-
-  /**
-   * @dev Return the address of the Pilot contract of the current pilot
-   * @return pilotContract The address of the Pilot contract of the current pilot
-   */
-  function getPilotContract() onlyPilot public view returns(address pilotContract) {
-    return(pilotContracts[msg.sender]);
-  }
-
-  /**
    * @dev Checks whether the pilot exists or not
    * @param _pilotId The ccount address of the pilot
    * @return pilotExists The true if the pilot exists, false if not
    */
   function isPilot(
     address _pilotId
-  ) public view returns(bool pilotExists) {
+  ) public view onlyOwner returns(bool pilotExists) {
     if (pilotContracts[_pilotId] == 0) return false;
     else return true;
   }
 
   /**
+   * @dev Create a new Pilot contract
+   * @param _pilotId The ccount address of the pilot
+   */
+  function createPilotContract(
+    address _pilotId
+  ) public onlyOwner {
+    if (!isPilot(_pilotId)) {
+      pilotContracts[_pilotId] = new Pilot();
+      emit LogCreatePilotContract(_pilotId, pilotContracts[_pilotId]);
+    }
+  }
+
+  /**
+   * @dev Return the address of the Pilot contract of the current pilot
+   * @param _pilotId The ccount address of the pilot
+   * @return pilotContract The address of the Pilot contract of the current pilot
+   */
+  function getPilotContract(
+    address _pilotId
+  ) public view onlyOwner returns(address pilotContract) {
+    if (isPilot(_pilotId)) return(pilotContracts[_pilotId]);
+  }
+
+
+  /**
    * @dev Delete the Pilot contract and its child contracts Logbook and Dcouments
    */
-  function deletePilotContract() onlyPilot public  {
+  function deletePilotContract() public onlyOwner {
     Pilot(pilotContracts[msg.sender]).deleteLogbookContract();
     Pilot(pilotContracts[msg.sender]).deleteDocumentContract();
     Pilot(pilotContracts[msg.sender]).destroy();
@@ -106,29 +111,37 @@ contract LogFactory is Destructible {
 
   /**
    * @dev Set a new Pilot contract in case the Pilot Contract needs to be changed
+   * @param _pilotId The ccount address of the pilot
    * @param _pilotContract The address of new Pilot contract
    */
   function setPilotContract(
+    address _pilotId,
     address _pilotContract
-  ) onlyOwner public {
-    pilotContracts[msg.sender] = _pilotContract;
-    emit LogSetPilotContract(msg.sender, pilotContracts[msg.sender]);
+  ) public onlyOwner {
+    pilotContracts[_pilotId] = _pilotContract;
+    emit LogSetPilotContract(_pilotId, pilotContracts[_pilotId]);
   }
 
   /**
    * @dev Return the address of the Pilot->Logbook contract of the current pilot
+   * @param _pilotId The ccount address of the pilot
    * @return logbookContract The address of the Pilot->Logbook contract
    */
-  function getLogbookContract() onlyPilot public view returns (address logbookContract) {
-    return (Pilot(pilotContracts[msg.sender]).getLogbookContract());
+  function getLogbookContract(
+    address _pilotId
+  ) public view onlyOwner returns (address logbookContract) {
+    if (isPilot(_pilotId)) return (Pilot(pilotContracts[_pilotId]).getLogbookContract());
   }
 
   /**
    * @dev Return the address of the Pilot->Document contract of the current pilot
+   * @param _pilotId The ccount address of the pilot
    * @return documentContract The address of the Pilot->Document contract
    */
-  function getDocumentContract() onlyPilot public view returns (address documentContract) {
-    return (Pilot(pilotContracts[msg.sender]).getDocumentContract());
+  function getDocumentContract(
+    address _pilotId
+  ) public view onlyOwner returns (address documentContract) {
+    if (isPilot(_pilotId)) return (Pilot(pilotContracts[_pilotId]).getDocumentContract());
   }
 
   /**
@@ -143,7 +156,7 @@ contract LogFactory is Destructible {
     bytes32 _lastName,
     bytes32 _email,
     int _birthDate
-  ) onlyPilot public returns(bool){
+  ) public onlyPilot {
     require(pilotContracts[msg.sender] != 0);
     Pilot(pilotContracts[msg.sender]).setPilotData(
       _firstName,
@@ -167,7 +180,7 @@ contract LogFactory is Destructible {
    * @return email The email address of the current pilot
    * @return birthDate The birth date of the current pilot
    */
-  function getPilotData() onlyPilot public view returns ( bytes32 firstName, bytes32 lastName, bytes32 email, int birthDate) {
+  function getPilotData() public view onlyPilot returns ( bytes32 firstName, bytes32 lastName, bytes32 email, int birthDate) {
     require(pilotContracts[msg.sender] != 0);
     return (
       Pilot(pilotContracts[msg.sender]).getPilotData()
@@ -186,7 +199,7 @@ contract LogFactory is Destructible {
     bytes32 _digest,
     uint8 _hashFunction,
     uint8 _size
-  ) onlyPilot public {
+  ) public onlyPilot {
     require(_docType > 0 && _docType < 255);
     require(_hashFunction > 0 && _hashFunction < 255);
     require(_size > 0 && _size < 255);
@@ -215,7 +228,7 @@ contract LogFactory is Destructible {
    */
   function getIpfsDocument(
     uint8 _docType
-  ) onlyPilot public view returns (bytes32 digest, uint8 hashFunction, uint8 size) {
+  ) public view onlyPilot returns (bytes32 digest, uint8 hashFunction, uint8 size) {
     require(_docType > 0 && _docType < 255);
     require(pilotContracts[msg.sender] != 0);require(pilotContracts[msg.sender] != 0);
     return(
@@ -229,7 +242,7 @@ contract LogFactory is Destructible {
    */
   function deleteIpfsDocument(
     uint8 _docType
-  ) onlyPilot public {
+  ) public onlyPilot {
     require(_docType > 0 && _docType < 255);
     require(pilotContracts[msg.sender] != 0);
     Pilot(pilotContracts[msg.sender]).deleteIpfsDocument(_docType);
@@ -251,7 +264,7 @@ contract LogFactory is Destructible {
     bytes32 _digest,
     uint8 _hashFunction,
     uint8 _size
-  ) onlyPilot public {
+  ) public onlyPilot {
     require(_docType > 0 && _docType < 255);
     require(_hashFunction > 0 && _hashFunction < 255);
     require(_size > 0 && _size < 255);
@@ -280,7 +293,7 @@ contract LogFactory is Destructible {
    */
   function getIpfsLogbook(
     uint8 _docType
-  ) onlyPilot public view returns (bytes32 digest, uint8 hashFunction, uint8 size) {
+  ) public view onlyPilot returns (bytes32 digest, uint8 hashFunction, uint8 size) {
     require(_docType > 0 && _docType < 255);
     require(pilotContracts[msg.sender] != 0);require(pilotContracts[msg.sender] != 0);
     return(
@@ -294,7 +307,7 @@ contract LogFactory is Destructible {
    */
   function deleteIpfsLogbook(
     uint8 _docType
-  ) onlyPilot public {
+  ) public onlyPilot {
     require(_docType > 0 && _docType < 255);
     require(pilotContracts[msg.sender] != 0);
     Pilot(pilotContracts[msg.sender]).deleteIpfsLogbook(_docType);
