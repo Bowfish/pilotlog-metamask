@@ -143,7 +143,7 @@ contract("LogFactory basic test patterns", function(accounts) {
   })
 
   it("delete the Pilot contract and its children", async function() {
-    await logFactoryContract.deletePilotContract(
+    await logFactoryContract.deletePilotContract(accounts[0],
       {from: owner}
     )
   })
