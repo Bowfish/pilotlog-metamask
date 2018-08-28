@@ -103,10 +103,12 @@ contract LogFactory is Destructible {
   /**
    * @dev Delete the Pilot contract and its child contracts Logbook and Dcouments
    */
-  function deletePilotContract() public onlyOwner {
-    Pilot(pilotContracts[msg.sender]).deleteLogbookContract();
-    Pilot(pilotContracts[msg.sender]).deleteDocumentContract();
-    Pilot(pilotContracts[msg.sender]).destroy();
+  function deletePilotContract(
+    address _pilotId
+  ) public onlyOwner {
+    Pilot(pilotContracts[_pilotId]).deleteLogbookContract();
+    Pilot(pilotContracts[_pilotId]).deleteDocumentContract();
+    Pilot(pilotContracts[_pilotId]).destroy();
   }
 
   /**
