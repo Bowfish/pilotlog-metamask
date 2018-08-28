@@ -106,9 +106,11 @@ contract LogFactory is Destructible {
   function deletePilotContract(
     address _pilotId
   ) public onlyOwner {
-    Pilot(pilotContracts[_pilotId]).deleteLogbookContract();
-    Pilot(pilotContracts[_pilotId]).deleteDocumentContract();
-    Pilot(pilotContracts[_pilotId]).destroy();
+    if (isPilot(_pilotId)) {
+      Pilot(pilotContracts[_pilotId]).deleteLogbookContract();
+      Pilot(pilotContracts[_pilotId]).deleteDocumentContract();
+      Pilot(pilotContracts[_pilotId]).destroy();
+    }
   }
 
   /**
